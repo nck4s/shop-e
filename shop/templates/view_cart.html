@@ -1,0 +1,13 @@
+<!-- view_cart.html -->
+{% extends 'base.html' %}
+
+<title>{% block title %}Your Cart{% endblock %}</title>
+
+{% block content %}
+<h1>Your Cart</h1>
+<ul>
+    {% for item in cart_items %}
+        <li>{{ item.name }} - {{ item.price }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
