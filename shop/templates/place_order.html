@@ -4,20 +4,23 @@
 
 {% block content %}
 <h1>Place Order</h1>
-     <form action="/place_order/" method="POST">
-         {% csrf_token %}
-         <input type="text" name="customer_name" placeholder="Your Name">
-         <input type="email" name="customer_email" placeholder="Your Email">
+<form action="{% url 'place_order' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="customer_name" placeholder="Your Name" required>
+    <input type="email" name="customer_email" placeholder="Your Email" required>
 
- <h2>Select Products:</h2>
-         <ul>
-         {% for product in products %}
-             <li>
-                 <input type="checkbox" name="product_ids[]" value="{{ product.id }}">
-                 <label>{{ product.name }}</label>
-             </li>
-         {% endfor %}
-         </ul>
-         <button type="submit">Place Order</button>
-     </form>
+    <h2>Select Products:</h2>
+    <ul>
+        {% for product in products %}
+            <li>
+                <input type="checkbox" name="product_ids[]" value="{{ product.id }}">
+                <label>{{ product.name }}</label>
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="submit">Place Order</button>
+</form>
+{% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+{% endif %}
 {% endblock %}

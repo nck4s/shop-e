@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
-<title>{% block title %}{{ product.name }}{% endblock %}</title>
+<title>{% block title %}Product: {{ product.name }}{% endblock %}</title>
 
 {% block content %}
-<h1>Product List</h1>
-<ul>
-{% for product in products %}
-    <li>
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.price }}</p>
-        <p>{{ product.description }}</p>
-        <form action="/place_order/" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="product_ids[]" value="{{ product.id }}">
-            <button type="submit">Add to Cart</button>
+  <h1>Product List</h1>
+  <ul>
+    {% for prod in products %}
+      <li>
+        <h3>{{ prod.name }}</h3>
+        <p>{{ prod.price }}</p>
+        <p>{{ prod.description }}</p>
+        <form action="{% url 'place_order' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="product_ids[]" value="{{ prod.id }}">
+          <button type="submit">Add to Cart</button>
         </form>
-    </li>
-{% endfor %}
-</ul>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
